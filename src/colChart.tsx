@@ -12,29 +12,38 @@ Highcharts.setOptions({
 });
 
 const defaultOptions: Highcharts.Options = {
-  title: {},
   chart: {
     type: 'column',
-    // marginTop: 40,
-    // marginLeft: 50,
+    marginTop: 90,
+    backgroundColor: 'transparent',
+    marginLeft: 50,
+  },
+  title: {
+    text: '人口數統計',
+    style: { fontSize: '24px', fontWeight: 'bold' },
   },
   xAxis: {
+    title: {
+      text: '型態',
+      style: { fontSize: '16px', color: 'black', fontWeight: 'bold' },
+    },
     categories: [],
     crosshair: true,
   },
   yAxis: {
     title: {
-      text: '',
-    //   align: 'high',
-    //   rotation: 0,
-    //   style: { fontSize: '16px', color: 'black' },
-    //   y: -25,
-    //   x: 55,
+      text: '數量',
+      align: 'high',
+      rotation: 0,
+      style: { fontSize: '16px', color: 'black', fontWeight: 'bold' },
+      y: -25,
+      x: 40,
     },
   },
-  //   tooltip: {
-  //     pointFormat: '{point.series.name}: {point.y:,.2f}',
-  //   },
+  tooltip: {
+    shared: true,
+    // pointFormat: '{point.series.name}: {point.y:,.2f}',
+  },
   plotOptions: {
     // column: {
     //   showInLegend: false,
@@ -85,7 +94,11 @@ function ColChart({ options: optionsProp }:HighchartsReact.Props) {
   }, [optionsProp]);
 
   return (
-    <HighchartsReact highcharts={Highcharts} options={options} />
+    <HighchartsReact
+      highcharts={Highcharts}
+      options={options}
+      containerProps={{ style: { height: '100%' } }}
+    />
   );
 }
 
