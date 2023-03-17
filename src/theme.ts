@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
 // A custom theme for this app
 const theme = createTheme({
@@ -15,8 +15,8 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: "'Ubuntu', sans-serif",
+    fontFamily: ["'Ubuntu', sans-serif", "'Noto Sans TC', sans-serif"].join(','),
   },
 });
 
-export default theme;
+export default responsiveFontSizes(theme);
