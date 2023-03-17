@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
+import { Skeleton, Stack } from '@mui/material';
 
 Highcharts.setOptions({
   lang: {
@@ -13,40 +14,64 @@ Highcharts.setOptions({
 
 const defaultOptions: Highcharts.Options = {
   chart: {
-    type: 'pie',
+    type: 'column',
+    marginTop: 90,
     backgroundColor: 'transparent',
+    marginLeft: 50,
   },
   title: {
-    text: '戶數統計',
+    text: '人口數統計',
     style: { fontSize: '24px', fontWeight: 'bold' },
   },
+  xAxis: {
+    title: {
+      text: '型態',
+      style: { fontSize: '16px', color: 'black', fontWeight: 'bold' },
+    },
+    categories: [],
+    crosshair: true,
+  },
+  yAxis: {
+    title: {
+      text: '數量',
+      align: 'high',
+      rotation: 0,
+      style: { fontSize: '16px', color: 'black', fontWeight: 'bold' },
+      y: -25,
+      x: 50,
+    },
+    softMax: 20000,
+
+  },
+  tooltip: {
+    shared: true,
+    // pointFormat: '{point.series.name}: {point.y:,.2f}',
+  },
   plotOptions: {
-    pie: {
-      allowPointSelect: true,
-      cursor: 'pointer',
+    column: {
+      groupPadding: 0.25,
       dataLabels: {
         enabled: true,
-        distance: 10,
-        // format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-        format: '{point.percentage:.2f} %',
+        crop: false,
+        overflow: 'allow',
         style: {
           fontSize: '16px',
           fontWeight: 'bolder',
           textOutline: 'none',
         },
       },
-      showInLegend: true,
     },
   },
   series: [],
   responsive: {
     rules: [{
       condition: {
-        maxWidth: 400,
+        maxWidth: 500,
       },
       chartOptions: {
         plotOptions: {
-          pie: {
+          column: {
+            groupPadding: 0.2,
             dataLabels: {
               style: {
                 fontSize: '12px',
@@ -59,7 +84,7 @@ const defaultOptions: Highcharts.Options = {
   },
 };
 
-function PieChart({ options: optionsProp }:HighchartsReact.Props) {
+export function ColChart({ options: optionsProp }:HighchartsReact.Props) {
   const [options, setOptions] = useState(defaultOptions);
 
   useEffect(() => {
@@ -77,4 +102,16 @@ function PieChart({ options: optionsProp }:HighchartsReact.Props) {
   );
 }
 
-export default PieChart;
+export function ColSkeleton() {
+  return (
+    <Stack width="95%" mx="auto" alignItems="center" spacing={3}>
+      <Skeleton variant="text" height="50px" width="55%" />
+      <Skeleton
+        width="100%"
+        height="35vw"
+        variant="rectangular"
+        sx={{ minHeight: '200px' }}
+      />
+    </Stack>
+  );
+}

@@ -7,13 +7,8 @@ import {
   TextField,
   Unstable_Grid2 as Grid,
 } from '@mui/material';
-import taiwanDistricts from '../../assets/data/taiwanDistricts.json';
-
-type FormValues = {
-  county?: string;
-  town?: string;
-  year: string;
-};
+import { FormValues } from './types';
+import { taiwanDistricts, years } from './configs';
 
 type FormProps = {
   onSubmit?: (e: FormValues) => void;
@@ -21,7 +16,7 @@ type FormProps = {
 
 export default function Form({ onSubmit }: FormProps) {
   const {
-    control, handleSubmit, watch, formState,
+    control, handleSubmit, watch, formState, setValue,
   } = useForm<FormValues>({
     defaultValues: {
       county: '',
@@ -50,9 +45,9 @@ export default function Form({ onSubmit }: FormProps) {
               InputLabelProps={{ shrink: true }}
               size="small"
               {...field}
-              sx={{ minWidth: '100px' }}
+              sx={{ minWidth: '70px' }}
             >
-              {['106', '107', '108', '109', '110'].map((y) => (
+              {years.map((y) => (
                 <MenuItem key={y} value={y}>
                   {y}
                 </MenuItem>
@@ -83,13 +78,14 @@ export default function Form({ onSubmit }: FormProps) {
                 )}
                 onChange={(e, newVal) => {
                   onChange(newVal ? newVal.name : '');
+                  setValue('town', '');
                 }}
                 onInputChange={(e, v, reason) => {
                   if (reason === 'clear') {
                     onChange('');
                   }
                 }}
-                sx={{ minWidth: '200px' }}
+                sx={{ minWidth: '165px' }}
                 {...otherFields}
               />
             );
@@ -103,12 +99,13 @@ export default function Form({ onSubmit }: FormProps) {
           rules={{ required: true }}
           render={({ field }) => {
             const { onChange, value, ...otherFields } = field;
-            const county = watch('county');
+            const countyWatched = watch('county');
             const findDistrict = taiwanDistricts.find(
-              (opt) => opt.name === county,
+              (opt) => opt.name === countyWatched,
             )?.districts;
             return (
               <Autocomplete
+                key={countyWatched}
                 disabled={!findDistrict}
                 options={findDistrict || [{ name: '', zip: '' }]}
                 getOptionLabel={(opt) => opt.name || ''}
@@ -129,7 +126,7 @@ export default function Form({ onSubmit }: FormProps) {
                     onChange('');
                   }
                 }}
-                sx={{ minWidth: '200px' }}
+                sx={{ minWidth: '165px' }}
                 {...otherFields}
               />
             );

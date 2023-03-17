@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
+import { Skeleton, Stack } from '@mui/material';
 
 Highcharts.setOptions({
   lang: {
@@ -59,7 +60,7 @@ const defaultOptions: Highcharts.Options = {
   },
 };
 
-function PieChart({ options: optionsProp }:HighchartsReact.Props) {
+export function PieChart({ options: optionsProp }:HighchartsReact.Props) {
   const [options, setOptions] = useState(defaultOptions);
 
   useEffect(() => {
@@ -77,4 +78,22 @@ function PieChart({ options: optionsProp }:HighchartsReact.Props) {
   );
 }
 
-export default PieChart;
+export function PieSkeleton() {
+  return (
+    <Stack width="95%" mx="auto" alignItems="center" spacing={3}>
+      <Skeleton variant="text" height="50px" width="30%" />
+      <Skeleton
+        width="40vw"
+        height="40vw"
+        variant="circular"
+        sx={{
+          maxWidth: '500px',
+          maxHeight: '500px',
+          minHeight: '250px',
+          minWidth: '250px',
+          mx: 'auto',
+        }}
+      />
+    </Stack>
+  );
+}

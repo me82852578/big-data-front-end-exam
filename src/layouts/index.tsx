@@ -2,10 +2,12 @@ import React from 'react';
 import {
   AppBar,
   Box,
+  Button,
   Stack,
   Toolbar,
   Typography,
 } from '@mui/material';
+import { SettingsOutlined } from '@mui/icons-material';
 import { Outlet } from 'react-router-dom';
 import AreaBrand from './areaBrand';
 
@@ -17,6 +19,18 @@ export default function MainLayout() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Logo
           </Typography>
+          <Button
+            variant="outlined"
+            color="inherit"
+            sx={{
+              borderColor: 'rgba(255, 255, 255, 0.5)',
+              minWidth: 0,
+              p: 0.5,
+              borderRadius: '8px',
+            }}
+          >
+            <SettingsOutlined sx={{ color: 'white' }} fontSize="small" />
+          </Button>
         </Toolbar>
       </AppBar>
       <Box
@@ -26,7 +40,7 @@ export default function MainLayout() {
         height="100%"
         overflow="hidden"
       >
-        <AreaBrand area="TAIPEI" />
+        <AreaBrand area="TAIWAN" />
         <Box
           display="flex"
           justifyContent="center"
