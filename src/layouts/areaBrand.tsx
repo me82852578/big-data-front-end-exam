@@ -25,7 +25,7 @@ export default function AreaBrand({ area = 'TAIWAN' }: AreaBrandProps) {
       <Typography
         fontSize="200px"
         lineHeight="73.5%"
-        letterSpacing="50px"
+        letterSpacing="23px"
         marginBottom="-50px"
         sx={{ writingMode: 'vertical-lr' }}
         fontWeight={700}
